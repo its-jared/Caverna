@@ -2,7 +2,7 @@ package level;
 
 import blocks.Block;
 import blocks.BlockManager;
-import core.Display;
+import core.GameState;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -17,7 +17,7 @@ public class Level {
 
     public Level(long s) {
         random = new Random();
-        blocks = new int[Display.COLUMNS][Display.ROWS];
+        blocks = new int[GameState.COLUMNS][GameState.ROWS];
 
         if (s == 0) 
             seed = random.nextLong(-999999, 999999);
@@ -28,12 +28,12 @@ public class Level {
     } 
 
     private void generateWorld() {
-        for (int x = 0; x < Display.COLUMNS; x++) {
-            for (int y = 0; y < Display.ROWS; y++) {
-                float n = OpenSimplex2S.noise2(seed, x * 0.2, y * 0.2);
+        for (int x = 0; x < GameState.COLUMNS; x++) {
+            for (int y = 0; y < GameState.ROWS; y++) {
+                float n = OpenSimplex2S.noise2(seed, x * 0.15, y * 0.15) * 3;
                 int block = 1; 
 
-                if (n <= 0.5) {
+                if (n < 0.8) {
                     block = 0;
                 }
 
@@ -43,8 +43,8 @@ public class Level {
     }
 
     public void draw(Graphics g, ImageObserver observer) {
-        for (int x = 0; x < Display.COLUMNS; x++) {
-            for (int y = 0; y < Display.ROWS; y++) {
+        for (int x = 0; x < GameState.COLUMNS; x++) {
+            for (int y = 0; y < GameState.ROWS; y++) {
                 Block block = getBlock(x, y);
 
                 if (block.id != 0) {        
@@ -52,8 +52,8 @@ public class Level {
                     if (image != null) {
                         g.drawImage(
                             image,
-                            x * Display.TILE_SIZE,
-                            y * Display.TILE_SIZE,
+                            x * GameState.TILE_SIZE,
+                            y * GameState.TILE_SIZE,
                             observer
                         );
                     }
@@ -65,11 +65,11 @@ public class Level {
     public Block getBlock(int x, int y) {
         int localX, localY; 
 
-        localX = x / Display.TILE_SIZE;
-        localY = y / Display.TILE_SIZE;
+        localX = x / GameState.TILE_SIZE;
+        localY = y / GameState.TILE_SIZE;
         
-        if (localX < 0 && localX >= Display.COLUMNS
-            && localY < 0 && localY >= Display.ROWS)
+        if (localX < 0 && localX >= GameState.COLUMNS
+            && localY < 0 && localY >= GameState.ROWS)
             return BlockManager.BLOCKS[1];
         
         return BlockManager.BLOCKS[blocks[x][y]];
@@ -78,11 +78,11 @@ public class Level {
     public void setBlock(int x, int y, int id) {
         int localX, localY; 
 
-        localX = x / Display.TILE_SIZE;
-        localY = y / Display.TILE_SIZE;
+        localX = x / GameState.TILE_SIZE;
+        localY = y / GameState.TILE_SIZE;
         
-        if (localX < 0 && localX >= Display.COLUMNS
-            && localY < 0 && localY >= Display.ROWS)
+        if (localX < 0 && localX >= GameState.COLUMNS
+            && localY < 0 && localY >= GameState.ROWS)
             return;
         
         blocks[x][y] = id;

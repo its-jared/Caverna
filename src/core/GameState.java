@@ -13,28 +13,26 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import level.Level;
 
-public class Display extends JPanel implements ActionListener, KeyListener {
+public class GameState extends JPanel implements ActionListener, KeyListener {
 
     // Controls the delay between each ticks in ms. 
     private final int DELAY = 60;
 
     public static final int TILE_SIZE = 16;
-    public static final int ROWS = 48;
-    public static final int COLUMNS = 72;
+    public static final int ROWS = 24;
+    public static final int COLUMNS = 36;
 
     public static final double GAME_SCALE = TILE_SIZE / 8;
 
     public static float TICKS_COMPLETED = 0;
 
     public final Random random;
-
     public final Level level;
 
     private final Timer gameClock;
-
     private final Player player;
 
-    public Display() {
+    public GameState() {
         setPreferredSize(new Dimension(
             TILE_SIZE * COLUMNS, 
             TILE_SIZE * ROWS
@@ -56,7 +54,7 @@ public class Display extends JPanel implements ActionListener, KeyListener {
 
         player.tick(this);
 
-        setBackground(new Color(130, 130, 130));
+        setBackground(new Color(30, 30, 30));
 
         repaint();
     }

@@ -1,6 +1,6 @@
 package blocks;
 
-import core.Display;
+import core.GameState;
 import core.ScaleBufferedImage;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,7 +28,7 @@ public abstract class Block {
             System.err.println("Error when attempting to get " + name + "'s image: " + e.getMessage());
         }
 
-        return ScaleBufferedImage.scaleNearest(image, Display.GAME_SCALE);
+        return ScaleBufferedImage.scaleNearest(image, GameState.GAME_SCALE);
     }
     
     public int getId() {

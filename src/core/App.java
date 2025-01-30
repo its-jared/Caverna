@@ -6,10 +6,10 @@ import javax.swing.SwingUtilities;
 public class App {
 
     private static void buildWindow() {
-        JFrame window = new JFrame("Caverna - Java");
+        JFrame window = new JFrame("Caverna - Indev");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Display gameDisplay = new Display();
+        GameState gameDisplay = new GameState();
         window.add(gameDisplay);
         window.addKeyListener(gameDisplay);
 
