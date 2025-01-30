@@ -30,7 +30,7 @@ public class Player {
         try {
             image = ImageIO.read(new File("assets/player.png"));
 
-            image = ScaleBufferedImage.scaleNearest(image, GameState.GAME_SCALE);
+            image = ScaleBufferedImage.scaleNearest(image, Game.GAME_SCALE);
         } catch (Exception e) {
             System.err.println("Error whilst opening player image file: " + e.getMessage());
         }
@@ -47,8 +47,8 @@ public class Player {
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage(
             image,
-            pos.x * GameState.TILE_SIZE,
-            pos.y * GameState.TILE_SIZE - 8,
+            pos.x * Game.TILE_SIZE,
+            pos.y * Game.TILE_SIZE - 8,
             observer
         );
     }
@@ -68,16 +68,16 @@ public class Player {
             tryMove(new Point(1, 0));
     }
 
-    public void tick(GameState display) {
+    public void tick() {
         if (pos.x < 0) 
             pos.x = 0;
-        else if (pos.x >= GameState.COLUMNS)
-            pos.x = GameState.COLUMNS - 1;
+        else if (pos.x >= Game.COLUMNS)
+            pos.x = Game.COLUMNS - 1;
 
         if (pos.y < 0) 
             pos.y = 0;
-        else if (pos.y >= GameState.ROWS)
-            pos.y = GameState.ROWS - 1;
+        else if (pos.y >= Game.ROWS)
+            pos.y = Game.ROWS - 1;
     }
 
 }
